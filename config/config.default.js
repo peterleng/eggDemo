@@ -74,7 +74,7 @@ module.exports = appInfo => {
     whiteList: '.test.com', // []
   };
 
-  /* config.mysql = {
+  config.mysql = {
     client: {
       host: '127.0.0.1',
       port: '3306',
@@ -86,7 +86,7 @@ module.exports = appInfo => {
     app: true,
     // 是否加载到 agent 上，默认关闭
     agent: false,
-  };*/
+  };
 
   config.redis = { // 单个redis
     client: {
@@ -97,14 +97,15 @@ module.exports = appInfo => {
     },
   };
 
-  exports.sequelize = {
+  /*
+ exports.sequelize = {
     dialect: 'mysql',
     database: 'test',
     host: '127.0.0.1',
     port: '3306',
     username: 'root',
     password: 'db',
-  };
+  };*/
 
 
   return config;

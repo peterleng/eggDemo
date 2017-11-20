@@ -22,13 +22,18 @@ module.exports = appInfo => {
     app: true,
   };
 
-  exports.sequelize = {
-    dialect: 'mysql',
-    database: 'test',
-    host: '10.0.4.8',
-    port: '33066',
-    username: 'root',
-    password: 'CenturyQWERT',
+  config.mysql = {
+    client: {
+      host: '10.0.4.8',
+      port: '33066',
+      user: 'root',
+      password: 'CenturyQWERT',
+      database: 'database',
+    },
+    // 是否加载到 app 上，默认开启
+    app: true,
+    // 是否加载到 agent 上，默认关闭
+    agent: false,
   };
 
   return config;
