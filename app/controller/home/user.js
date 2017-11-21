@@ -125,7 +125,7 @@ class IndexController extends Controller {
    */
   async ajaxProfile() {
     const createRule = {
-      id: { type: 'integer' },
+      id: { type: 'string' },
       icon: { type: 'string' },
     };
 

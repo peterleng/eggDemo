@@ -1,5 +1,8 @@
 'use strict';
 
+const path = require('path');
+const fs = require('fs');
+
 module.exports = {
   get isIOS() {
     const iosReg = /iphone|ipad|ipod/i;
@@ -29,6 +32,16 @@ module.exports = {
       success: false,
       message: msg,
     };
+  },
+
+  mkdirsSync(dirname) {
+    if (fs.existsSync(dirname)) {
+      return true;
+    }
+    if (this.mkdirsSync(path.dirname(dirname))) {
+      fs.mkdirSync(dirname);
+      return true;
+    }
   },
 
 };

@@ -5,6 +5,7 @@ module.exports = appInfo => {
 
   config.env = 'local';
   config.keys = 'cookies_secret_key';
+  config.res_host = '/public/';// http://test.com/
 
   config.logger = {
     level: 'DEBUG',

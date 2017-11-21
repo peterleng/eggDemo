@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ ctx.csrf | safe }}">
-    <script src="/public/common/js/jquery-2.1.1.js"></script>
-    <script src="/public/common/bootstrap/js/bootstrap.min.js"></script>
-    <link href="/public/common/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="{{ ctx.app.config.res_host }}common/js/jquery-2.1.1.js"></script>
+    <script src="{{ ctx.app.config.res_host }}common/bootstrap/js/bootstrap.min.js"></script>
+    <link href="{{ ctx.app.config.res_host }}common/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <title>{{ title }}</title>
     <style>
         .w1200{width: 1200px;}

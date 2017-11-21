@@ -37,7 +37,7 @@
                 <label class="col-lg-2 control-label">头像</label>
                 <div class="col-lg-4">
                     {% if(userInfo.icon) %}
-                    <img src="{{ userInfo.icon }}" class="user-icon">
+                    <img src="{{ ctx.app.config.res_host + userInfo.icon }}" class="user-icon">
                     {% else %}
                     <img src="" class="user-icon">
                     {% endif %}
@@ -52,7 +52,7 @@
                     <button type="button" class="btn btn-default btn-submit">保存</button>
                 </div>
             </div>
-            <input type="hidden" name="id" value="<%= userInfo.id %>">
+            <input type="hidden" name="id" value="{{ userInfo.id }}">
         </form>
     </div>
 </div>
@@ -79,12 +79,10 @@
         });
 
         function uoloadFile(file) {
-
             var data = new FormData();
             data.append('upfile', file);
-
             $.ajax({
-                url: '/common/upfile',
+                url: "{{ ctx.helper.pathFor('home.upload') }}",
                 type: "POST",
                 data: data,
                 async: true,

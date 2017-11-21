@@ -7,6 +7,7 @@ module.exports = appInfo => {
 
   // cookie加密key
   config.keys = 'cookies_secret_key';
+  config.res_host = '';// http://test.com/
 
   exports.cluster = {
     listen: {
@@ -63,6 +64,7 @@ module.exports = appInfo => {
   };
 
   config.multipart = {
+    fileSize: '2mb',
     fileExtensions: [ '.apk' ], // 增加对 .apk 扩展名的支持
     // whitelist: [ '.png' ], // 覆盖整个白名单，只允许上传 '.png' 格式
   };

@@ -2,28 +2,38 @@
 
 const Controller = require('egg').Controller;
 const path = require('path');
-const sendToWormhole = require('stream-wormhole');
+const fs = require('fs');
 
 class PublicController extends Controller {
   async upload() {
-    const ctx = this.ctx;
-    const stream = await ctx.getFileStream();
-    const name = 'egg-multipart-test/' + path.basename(stream.filename);
-    // 文件处理，上传到云存储等等
-    let result;
     try {
-      result = await ctx.oss.put(name, stream);
-    } catch (err) {
-      // 必须将上传的文件流消费掉，要不然浏览器响应会卡死
-      await sendToWormhole(stream);
-      throw err;
-    }
+      const ctx = this.ctx;
+      const stream = await ctx.getFileStream();
 
-    ctx.body = {
-      url: result.url,
-      // 所有表单字段都能通过 `stream.fields` 获取到
-      fields: stream.fields,
-    };
+      const date = new Date();
+      let filepath = 'upload/' + date.getFullYear() + '/' + (parseInt(date.getMonth()) + 1) + '/' + date.getDate();
+      const dirpath = path.join(__dirname, './../../public/', filepath);
+      if (!fs.existsSync(dirpath)) {
+        await this.ctx.mkdirsSync(dirpath);
+      }
+
+      let name = Math.random().toString(16).substr(2);
+      name += path.extname(stream.filename);
+      filepath = filepath + '/' + name;
+
+      const dirfullpath = path.join(dirpath, name);
+
+      const ws = await fs.createWriteStream(dirfullpath);
+      await stream.pipe(ws);
+
+      this.ctx.jsonSuccess({
+        url: this.app.config.res_host + filepath,
+        value: filepath,
+      });
+    } catch (err) {
+      this.ctx.logger.error(err.errors || err.message);
+      this.ctx.jsonError(err.message, err.code);
+    }
   }
 }
 
