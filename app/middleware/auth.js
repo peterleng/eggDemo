@@ -7,7 +7,7 @@ module.exports = () => {
       isLogin = session && session.isLogin === true;
     if (!isLogin) {
       if (ctx.isAjax) {
-        ctx.response.body = ctx.jsonError('请先登录.', 423);
+        ctx.jsonError('请先登录.', 423);
       } else {
         ctx.redirect('/login');
       }
