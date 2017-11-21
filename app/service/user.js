@@ -21,9 +21,17 @@ class UserService extends BaseService {
     return await this.create(data);
   }
 
-  async findBy(column) {
+  async findByName(name) {
     const user = await this.app.mysql.get(this.table, {
-      column,
+      name,
+    });
+    return user;
+  }
+
+
+  async findByEmail(email) {
+    const user = await this.app.mysql.get(this.table, {
+      email,
     });
     return user;
   }

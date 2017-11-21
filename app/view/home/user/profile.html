@@ -1,0 +1,120 @@
+{% extends "../layout/main.html" %}
+
+{% block content %}
+
+<div class="wrapper marginAuto">
+    <div class="col-lg-8 table-bordered">
+        <form class="form-horizontal login-form" action="{{ ctx.helper.pathFor('home.user.ajaxprofile') }}" method="post">
+            <div class="form-group">
+                <label class="col-lg-2 control-label">用户名</label>
+                <div class="col-lg-4">
+                    {{ userInfo.name }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-lg-2 control-label">邮箱</label>
+                <div class="col-lg-4">
+                    {{userInfo.email }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-lg-2 control-label">昵称</label>
+                <div class="col-lg-4">
+                    {{ userInfo.nick }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-lg-2 control-label">简介</label>
+                <div class="col-lg-4">
+                    {{ userInfo.remark }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-lg-2 control-label">头像</label>
+                <div class="col-lg-4">
+                    {% if(userInfo.icon) %}
+                    <img src="{{ userInfo.icon }}" class="user-icon">
+                    {% else %}
+                    <img src="" class="user-icon">
+                    {% endif %}
+                    <input type="hidden" name="icon" class="icon_value" value="">
+                    <input type="file" class="form-control input-icon" name="icon_img">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-2"></div>
+                <div class="col-lg-4">
+                    <button type="button" class="btn btn-default btn-submit">保存</button>
+                </div>
+            </div>
+            <input type="hidden" name="id" value="<%= userInfo.id %>">
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+{{ super() }}
+
+<script>
+    $(document).ready(function () {
+
+        $('.btn-submit').on('click', function () {
+            var form = $('.login-form'), params = form.serialize();
+            console.log(params);
+
+            $.post(form.attr('action'), params, function (result) {
+                if (result && result.success === true) {
+                    location.href = '/';
+                } else {
+                    alert(result.message);
+                }
+            })
+        });
+
+        function uoloadFile(file) {
+
+            var data = new FormData();
+            data.append('upfile', file);
+
+            $.ajax({
+                url: '/common/upfile',
+                type: "POST",
+                data: data,
+                async: true,
+                cache: false,
+                processData: false, //不处理数据
+                contentType: false, //不修改MIME类型
+                dataType: 'json',//返回json
+                beforeSend: function () {
+                },
+                success: function (data) {
+                    console.log(data);
+                    if (data.success === true) {
+                        $('.user-icon').attr('src', data.data.url);
+                        $('.icon_value').val(data.data.value);
+                    } else {
+                        alert(data.message);
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert(textStatus);
+                }
+            });
+        }
+
+        $('input[type=file]').on('change', function () {
+            uoloadFile(this.files[0]);
+        });
+
+    });
+
+</script>
+
+{% endblock %}

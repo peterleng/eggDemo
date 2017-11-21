@@ -12,4 +12,6 @@ module.exports = app => {
   app.get('home.logout', '/logout', 'home.user.logout');
   app.get('home.register', '/register', 'home.user.register');
   app.post('home.ajaxregister', '/ajaxregister', 'home.user.ajaxRegister');
+  app.get('home.user.profile', '/profile', 'home.user.profile');
+  app.post('home.user.ajaxprofile', '/ajaxprofile', 'home.user.ajaxProfile');
 };

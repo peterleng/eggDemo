@@ -94,11 +94,53 @@ class IndexController extends Controller {
       session.user = {
         id: uid,
         email: formData.email,
-        name: formData.name,
+        name: formData.userName,
         nick: formData.nick,
+        icon: '',
       };
 
       this.ctx.jsonSuccess('注册成功');
+    } catch (err) {
+      this.ctx.logger.error(err.errors || err.message);
+      this.ctx.jsonError(err.errors || err.message);
+    }
+  }
+
+  /**
+   * 个人中心页
+   * @return {Promise.<*>} 个人中心页
+   */
+  async profile() {
+    const username = this.ctx.session.user.name;
+    const userResult = await this.ctx.service.user.findByName(username);
+    console.log(userResult);
+    return this.ctx.render('home/user/profile', {
+      title: 'Profile',
+      userInfo: userResult,
+    });
+  }
+
+  /**
+   * 修改个人资料
+   */
+  async ajaxProfile() {
+    const createRule = {
+      id: { type: 'integer' },
+      icon: { type: 'string' },
+    };
+
+    try {
+      this.ctx.validate(createRule, this.ctx.request.body);
+      // 调用 service 进行业务处理
+      const res = await this.ctx.service.user.update(this.ctx.request.body.id, {
+        icon: this.ctx.request.body.icon,
+      });
+
+      if (!res) {
+        this.ctx.throw('修改失败');
+      }
+
+      this.ctx.jsonSuccess('修改成功');
     } catch (err) {
       this.ctx.logger.error(err.errors || err.message);
       this.ctx.jsonError(err.errors || err.message);
