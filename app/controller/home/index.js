@@ -4,9 +4,13 @@ const Controller = require('egg').Controller;
 
 class IndexController extends Controller {
   async index() {
-    this.ctx.body = 'hi, egg';
+    return this.ctx.render('home/index', { title: 'Index' });
   }
 
+
+  /**
+   * 测试事例  后续删除
+   */
   async test() {
     const createRule = {
       title: { type: 'string' },

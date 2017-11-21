@@ -1,0 +1,84 @@
+{% extends "../layout/main.html" %}
+
+{% block content %}
+
+<div class="wrapper marginAuto">
+    <div class="col-lg-8 table-bordered">
+        <form class="form-horizontal register-form" action="{{ ctx.helper.pathFor('home.ajaxregister') }}" method="post">
+            <div class="form-group">
+                <label class="col-lg-2 control-label">用户名</label>
+                <div class="col-lg-4">
+                    <input type="text" name="userName" class="form-control" placeholder="用户名">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-lg-2 control-label">邮箱</label>
+                <div class="col-lg-4">
+                    <input type="email" name="email" class="form-control" placeholder="邮箱">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-lg-2 control-label">昵称</label>
+                <div class="col-lg-4">
+                    <input type="text" name="nick" class="form-control" placeholder="昵称">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-lg-2 control-label">密码</label>
+                <div class="col-lg-4">
+                    <input type="password" name="password" class="form-control" placeholder="密码">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-lg-2 control-label">确认密码</label>
+                <div class="col-lg-4">
+                    <input type="password" name="confirmPassword" class="form-control" placeholder="确认密码">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-lg-2 control-label">详细信息</label>
+                <div class="col-lg-4">
+                    <textarea class="form-control" name="remark"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-2"></div>
+                <div class="col-lg-4">
+                    <button type="button" class="btn btn-default btn-submit">注册</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+{{ super() }}
+
+<script>
+    $(document).ready(function () {
+
+        $('.btn-submit').on('click', function () {
+            var form = $('.register-form'), params = form.serialize();
+
+            $.post(form.attr('action'), params, function (result) {
+                if (result && result.success === true) {
+                    location.href = '/';
+                }else {
+                    alert(result.message);
+                }
+            })
+        });
+
+    });
+
+</script>
+
+{% endblock %}

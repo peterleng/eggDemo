@@ -9,31 +9,24 @@ exports.validate = {
   package: 'egg-validate',
 };
 
-/*
 exports.mysql = {
-  enable: false,
+  enable: true,
   package: 'egg-mysql',
 };
-*/
+
+exports.sessionRedis = {
+  enable: true,
+  package: 'egg-session-redis',
+};
 
 exports.redis = {
   enable: true,
   package: 'egg-redis',
 };
-exports.sessionRedis = {
-  enable: true,
-  // egg-sequelize
-  package: 'egg-session-redis',
-};
 
 exports.nunjucks = {
   enable: true,
   package: 'egg-view-nunjucks',
-};
-
-exports.sequelize = {
-  enable: true,
-  package: 'egg-sequelize',
 };
 
 /*

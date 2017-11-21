@@ -6,7 +6,7 @@ module.exports = appInfo => {
   config.env = 'prod';
 
   // cookie加密key
-  config.keys = appInfo.name + '_1510997668045_730';
+  config.keys = 'cookies_secret_key';
 
   exports.cluster = {
     listen: {
@@ -38,7 +38,7 @@ module.exports = appInfo => {
   };
 
   // 配置需要的中间件，数组顺序即为中间件的加载顺序
-  config.middleware = [ 'report', 'gzip' ];
+  config.middleware = [ 'report', 'locals' ];
 
   // 配置 gzip 中间件的配置
   config.gzip = {
@@ -89,24 +89,22 @@ module.exports = appInfo => {
   };
 
   config.redis = { // 单个redis
-    client: {
-      port: 6379, // Redis port
-      host: '127.0.0.1', // Redis host
-      password: 'pass',
-      db: 1,
+    clients: {
+      session: {
+        port: 6379, // Redis port
+        host: '127.0.0.1', // Redis host
+        password: 'pass',
+        db: 1,
+      },
+      cache: {
+        port: 6379, // Redis port
+        host: '127.0.0.1', // Redis host
+        password: 'pass',
+        db: 2,
+      },
     },
+    agent: true,
   };
-
-  /*
- exports.sequelize = {
-    dialect: 'mysql',
-    database: 'test',
-    host: '127.0.0.1',
-    port: '3306',
-    username: 'root',
-    password: 'db',
-  };*/
-
 
   return config;
 };

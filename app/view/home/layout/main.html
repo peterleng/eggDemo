@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="/public/common/js/jquery-2.1.1.js"></script>
+    <script src="/public/common/bootstrap/js/bootstrap.min.js"></script>
+    <link href="/public/common/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <title>{{ title }}</title>
+    <style>
+        .w1200{width: 1200px;}
+        .marginAuto{margin: 0 auto;}
+    </style>
+</head>
+<body>
+<div class="gray-bg marginAuto w1200">
+    {% include "../common/nav.html" %}
+
+    {% block content %}
+    {% endblock %}
+</div>
+
+{% block script %}
+<script>
+
+    $(document).ready(function () {
+        $('.btn-logout').on('click', function () {
+            $.get("{{ ctx.helper.pathFor('home.logout') }}", function () {
+                location.href = "{{ ctx.helper.pathFor('home.login') }}";
+            });
+        });
+    });
+
+</script>
+{% endblock %}
+</body>
+</html>
