@@ -52,17 +52,17 @@ class BaseService extends Service {
   /*
    * 查询多条
    */
-  async list(where, order = [ 'id', 'desc' ], limit = null, offset = null, columns = '*') {
+  async list(where, order = [[ 'id', 'desc' ]], limit = null, offset = null, columns = '*') {
     const condition = { // 搜索 post 表
       where, // WHERE 条件
       orders: order, // 排序方式
     };
 
-    if (Math.isNumber(limit)) {
+    if (limit) {
       condition.limit = limit;
     }
 
-    if (Math.isNumber(offset)) {
+    if (offset) {
       condition.offset = offset;
     }
 

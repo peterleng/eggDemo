@@ -12,6 +12,12 @@ module.exports = app => {
   app.get('home.logout', '/logout', 'home.user.logout');
   app.get('home.register', '/register', 'home.user.register');
   app.post('home.ajaxregister', '/ajaxregister', 'home.user.ajaxRegister');
-  app.get('home.user.profile', '/profile', 'home.user.profile');
-  app.post('home.user.ajaxprofile', '/ajaxprofile', 'home.user.ajaxProfile');
+  app.get('home.user.profile', '/profile', app.middlewares.auth(), 'home.user.profile');
+  app.post('home.user.ajaxprofile', '/ajaxprofile', app.middlewares.auth(), 'home.user.ajaxProfile');
+
+  app.get('home.news', '/news', 'home.news.index');
+  app.get('home.news.add', '/news/add', 'home.news.add');
+  app.get('home.news.edit', '/news/edit/:id', 'home.news.edit');
+  app.post('home.news.remove', '/news/remove', 'home.news.remove');
+  app.post('home.news.save', '/news/save', 'home.news.save');
 };
