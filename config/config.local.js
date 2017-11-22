@@ -44,5 +44,15 @@ module.exports = appInfo => {
     agent: true,
   };
 
+  exports.io = {
+    redis: {
+      host: '10.0.4.49',
+      port: 6379,
+      auth_pass: '123456',
+      db: 2,
+    },
+  };
+
+
   return config;
 };

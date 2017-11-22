@@ -20,4 +20,6 @@ module.exports = app => {
   app.get('home.news.edit', '/news/edit/:id', app.middlewares.auth(), 'home.news.edit');
   app.post('home.news.remove', '/news/remove', app.middlewares.auth(), 'home.news.remove');
   app.post('home.news.save', '/news/save', app.middlewares.auth(), 'home.news.save');
+
+    app.get('home.chat', '/chatroom', 'home.chat.index');
 };

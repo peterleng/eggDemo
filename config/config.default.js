@@ -108,5 +108,22 @@ module.exports = appInfo => {
     agent: true,
   };
 
+  exports.io = {
+    init: {
+      path: '/chat',
+      cookie: true,
+    }, // passed to engine.io
+    namespace: {
+      '/chat': {
+        connectionMiddleware: [ 'auth' ],
+        packetMiddleware: [],
+      },
+    },
+    redis: {
+      host: '127.0.0.1',
+      port: 6379,
+    },
+  };
+
   return config;
 };

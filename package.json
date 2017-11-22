@@ -9,9 +9,9 @@
     "egg-redis": "^1.0.2",
     "egg-scripts": "^2.1.0",
     "egg-session-redis": "^1.0.0",
+    "egg-socket.io": "^3.0.0",
     "egg-validate": "^1.0.0",
-    "egg-view-nunjucks": "^2.1.4",
-    "stream-wormhole": "^1.0.3"
+    "egg-view-nunjucks": "^2.1.4"
   },
   "devDependencies": {
     "autod": "^2.10.0",
@@ -29,8 +29,8 @@
   "scripts": {
     "start": "egg-scripts start --daemon",
     "stop": "egg-scripts stop",
-    "dev": "egg-bin dev",
-    "debug": "egg-bin debug",
+    "dev": "egg-bin dev --sticky",
+    "debug": "egg-bin debug --sticky",
     "test": "npm run lint -- --fix && npm run test-local",
     "test-local": "egg-bin test",
     "cov": "egg-bin cov",

@@ -29,6 +29,10 @@ exports.nunjucks = {
   package: 'egg-view-nunjucks',
 };
 
+exports.io = {
+  enable: true,
+  package: 'egg-socket.io',
+};
 /*
 默认开启的
 exports.security = {

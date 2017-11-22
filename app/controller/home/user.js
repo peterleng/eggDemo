@@ -17,6 +17,9 @@ class IndexController extends Controller {
    */
   async ajaxLogin() {
     const createRule = {
+      // required:true,type:'string int number email url password enum object array' min:100,max:200
+      // id:'id',date:'YYYY-MM-DD', datetime:'YYYY-MM-DD HH:mm:ss',values:['enums'],allowEmpty:false
+      //   const errors = this.validator.validate({ id: 'id' }, this.request.body);
       userName: { type: 'string' },
       password: { type: 'string' },
     };
